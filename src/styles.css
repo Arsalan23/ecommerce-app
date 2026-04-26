@@ -1,0 +1,135 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-navy-deep: var(--navy-deep);
+  --color-orange: var(--orange);
+  --color-orange-foreground: var(--orange-foreground);
+  --color-success: var(--success);
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  --radius: 0.5rem;
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.18 0.04 265);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.04 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.04 265);
+
+  /* Brand: deep navy + vivid orange - matching live site exactly */
+  --primary: #f97316;                        /* vivid orange-500 */
+  --primary-foreground: #ffffff;
+  --orange: #f97316;                         /* vivid orange */
+  --orange-foreground: #ffffff;
+  --navy: #0f172a;                           /* dark navy (slate-900) */
+  --navy-foreground: #f8fafc;
+  --navy-deep: #0a1628;                      /* deeper navy band */
+
+  --secondary: oklch(0.97 0.01 250);
+  --secondary-foreground: oklch(0.24 0.07 265);
+  --muted: oklch(0.96 0.01 250);
+  --muted-foreground: oklch(0.45 0.02 257);
+  --accent: oklch(0.96 0.02 250);
+  --accent-foreground: oklch(0.24 0.07 265);
+
+  --destructive: oklch(0.58 0.24 27);
+  --destructive-foreground: oklch(1 0 0);
+  --success: oklch(0.62 0.17 150);
+
+  --border: oklch(0.91 0.01 255);
+  --input: oklch(0.91 0.01 255);
+  --ring: oklch(0.66 0.21 36);
+}
+
+.dark {
+  --background: oklch(0.16 0.04 265);
+  --foreground: oklch(0.98 0.01 247);
+  --card: oklch(0.22 0.05 265);
+  --card-foreground: oklch(0.98 0.01 247);
+  --popover: oklch(0.22 0.05 265);
+  --popover-foreground: oklch(0.98 0.01 247);
+  --primary: oklch(0.7 0.21 36);
+  --primary-foreground: oklch(0.16 0.04 265);
+  --secondary: oklch(0.28 0.04 260);
+  --secondary-foreground: oklch(0.98 0.01 247);
+  --muted: oklch(0.28 0.04 260);
+  --muted-foreground: oklch(0.7 0.02 256);
+  --accent: oklch(0.28 0.04 260);
+  --accent-foreground: oklch(0.98 0.01 247);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.7 0.21 36);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-weight: 800; letter-spacing: -0.01em; }
+}
+
+@layer components {
+  .container-px { @apply px-4 sm:px-6 lg:px-10; }
+  .btn-orange {
+    background: var(--orange);
+    color: var(--orange-foreground);
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 font-bold uppercase tracking-wide text-sm transition-all hover:opacity-90 hover:shadow-lg hover:shadow-orange/30;
+  }
+  .btn-outline-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border-2 border-white/80 bg-transparent px-6 py-3 font-bold uppercase tracking-wide text-sm text-white transition-all hover:bg-white hover:text-navy;
+  }
+  .btn-navy {
+    background: var(--navy);
+    color: var(--navy-foreground);
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 font-bold uppercase tracking-wide text-sm transition-all hover:opacity-90;
+  }
+  .badge-tag {
+    @apply inline-flex items-center gap-2 rounded-full border border-orange/40 bg-orange/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-orange;
+  }
+  .ticker-track {
+    animation: ticker 40s linear infinite;
+  }
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
