@@ -3,6 +3,16 @@
   publish = "dist/client"
 
 [[redirects]]
+  from = "/_serverFn/*"
+  to = "/_serverFn/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/api/:splat"
+  status = 200
+
+[[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/_shell.html"
   status = 200
