@@ -25,7 +25,7 @@ export function Footer() {
           <ul className="space-y-2 text-sm">
             {CATEGORIES.map((c) => (
               <li key={c.slug}>
-                <Link to="/category/$slug" params={{ slug: c.slug }} className="text-white/80 hover:text-orange">
+                <Link to="/shop" search={{ category: c.slug }} className="text-white/80 hover:text-orange">
                   {c.name}
                 </Link>
               </li>

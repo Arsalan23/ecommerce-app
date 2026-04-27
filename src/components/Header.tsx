@@ -8,7 +8,7 @@ import { useCart } from "@/lib/cart";
 interface DropdownMenuProps {
   label: string;
   to: string;
-  items: { to: string; label: string }[];
+  items: { to: string; label: string; search?: Record<string, string> }[];
 }
 
 function DropdownMenu({ label, to, items }: DropdownMenuProps) {
@@ -43,8 +43,9 @@ function DropdownMenu({ label, to, items }: DropdownMenuProps) {
           <div className="py-2">
             {items.map((item) => (
               <Link
-                key={item.to}
+                key={`${item.to}-${item.label}`}
                 to={item.to}
+                search={item.search}
                 className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-orange/5 hover:text-orange transition-colors"
               >
                 {item.label}
@@ -102,7 +103,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation with Dropdowns */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
             <Link
               to="/"
               className="text-sm font-semibold text-navy hover:text-orange transition-colors py-2"
@@ -115,7 +116,15 @@ export function Header() {
             <DropdownMenu {...NAV_DROPDOWNS.containers} />
             <DropdownMenu {...NAV_DROPDOWNS.trailers} />
             <DropdownMenu {...NAV_DROPDOWNS.cabins} />
+            {/* <DropdownMenu {...NAV_DROPDOWNS.accessories} /> */}
             <DropdownMenu {...NAV_DROPDOWNS.resources} />
+            
+            {/* <Link
+              to="/shop"
+              className="text-sm font-semibold text-orange hover:text-orange-600 transition-colors py-2"
+            >
+              Deals
+            </Link> */}
             
             {SIMPLE_LINKS.slice(1).map((l) => (
               <Link
@@ -173,8 +182,9 @@ export function Header() {
                     <div className="pb-2 pl-4">
                       {dropdown.items.map((item) => (
                         <Link
-                          key={item.to}
+                          key={`${item.to}-${item.label}`}
                           to={item.to}
+                          search={item.search}
                           onClick={() => setOpen(false)}
                           className="block py-2 text-sm text-gray-600 hover:text-orange"
                         >
@@ -185,6 +195,14 @@ export function Header() {
                   )}
                 </div>
               ))}
+              
+              {/* <Link
+                to="/shop"
+                onClick={() => setOpen(false)}
+                className="py-2.5 text-sm font-semibold text-orange border-b"
+              >
+                Deals
+              </Link> */}
               
               {SIMPLE_LINKS.slice(1).map((l) => (
                 <Link

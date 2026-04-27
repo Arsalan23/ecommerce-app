@@ -107,8 +107,8 @@ function Index() {
           {CATEGORIES.map((c) => (
             <Link
               key={c.slug}
-              to="/category/$slug"
-              params={{ slug: c.slug }}
+              to="/shop"
+              search={{ category: c.slug }}
               className="group relative aspect-square overflow-hidden rounded-xl bg-navy"
             >
               <img src={c.image} alt={c.name} loading="lazy" className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500" />

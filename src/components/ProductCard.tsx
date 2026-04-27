@@ -22,8 +22,8 @@ export function ProductCard({ product }: { product: Product }) {
       </Link>
       <div className="p-4 flex flex-col flex-1">
         <Link
-          to="/category/$slug"
-          params={{ slug: product.category }}
+          to="/shop"
+          search={{ category: product.category }}
           className="text-[11px] font-semibold uppercase tracking-widest text-orange hover:underline"
         >
           {product.categoryLabel}

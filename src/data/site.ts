@@ -29,9 +29,9 @@ export const TICKER_ITEMS = [
 export const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/shop", label: "Shop" },
-  { to: "/category/20ft-containers", label: "Containers" },
-  { to: "/category/enclosed-trailers", label: "Trailers" },
-  { to: "/category/cabins-for-sale", label: "Cabins" },
+  { to: "/shop", search: { category: "20ft-containers" }, label: "Containers" },
+  { to: "/shop", search: { category: "enclosed-trailers" }, label: "Trailers" },
+  { to: "/shop", search: { category: "cabins-for-sale" }, label: "Cabins" },
   { to: "/buyers-guide", label: "Resources" },
   { to: "/testimonials", label: "Testimonials" },
   { to: "/contact", label: "Contact" },
