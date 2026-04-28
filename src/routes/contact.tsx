@@ -8,8 +8,8 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
     meta: [
-      { title: "Contact Us — Nano Containers LLC" },
-      { name: "description", content: "Get in touch for free quotes on shipping containers, trailers and cabins. We respond within 1 business day." },
+      { title: "Contact BoxCraft — Get Your Free Quote Today" },
+      { name: "description", content: "Contact BoxCraft for premium shipping containers, trailers, and cabins. Free quotes within 1 hour. Call +1 (435) 229-9359." },
     ],
   }),
 });

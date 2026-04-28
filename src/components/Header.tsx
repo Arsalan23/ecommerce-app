@@ -32,8 +32,8 @@ function DropdownMenu({ label, to, items }: DropdownMenuProps) {
     >
       <Link
         to={to}
-        className="flex items-center gap-1 text-sm font-semibold text-navy hover:text-orange transition-colors py-2"
-        activeProps={{ className: "text-orange" }}
+        className="flex items-center gap-1 text-sm font-semibold text-navy hover:text-amber-500 transition-colors py-2"
+        activeProps={{ className: "text-amber-500" }}
       >
         {label}
         <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
@@ -46,7 +46,7 @@ function DropdownMenu({ label, to, items }: DropdownMenuProps) {
                 key={`${item.to}-${item.label}`}
                 to={item.to}
                 search={item.search}
-                className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-orange/5 hover:text-orange transition-colors"
+                className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-amber-500/5 hover:text-amber-500 transition-colors"
               >
                 {item.label}
               </Link>
@@ -89,16 +89,17 @@ export function Header() {
       {/* Main nav */}
       <div className="bg-white border-b shadow-sm">
         <div className="container-px mx-auto max-w-7xl flex items-center justify-between gap-6 py-4">
-          <Link to="/" className="flex items-center gap-3 shrink-0">
-            <div className="h-10 w-10 rounded bg-navy flex items-center justify-center">
-              <div className="h-6 w-7 rounded-sm bg-orange relative">
-                <div className="absolute inset-x-0 top-1 h-0.5 bg-navy" />
-                <div className="absolute inset-x-0 bottom-1 h-0.5 bg-navy" />
-              </div>
+          <Link to="/" className="flex items-center gap-3 shrink-0 group">
+            <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-navy to-navy-800 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+              <svg viewBox="0 0 32 32" className="h-7 w-7" fill="none">
+                <rect x="4" y="8" width="24" height="20" rx="2" stroke="#f59e0b" strokeWidth="2.5" fill="none"/>
+                <path d="M4 14h24M12 8v20M20 8v20" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round"/>
+                <circle cx="16" cy="18" r="3" fill="#f59e0b"/>
+              </svg>
             </div>
             <div className="leading-tight">
-              <div className="font-extrabold text-navy text-lg tracking-tight">NANO</div>
-              <div className="font-bold text-navy text-sm -mt-1 tracking-wider">CONTAINERS<span className="text-orange text-[10px] ml-1">LLC</span></div>
+              <div className="font-black text-navy text-xl tracking-tight">BOX<span className="text-amber-500">CRAFT</span></div>
+              <div className="text-[10px] font-semibold text-gray-500 tracking-[0.2em] uppercase">Premium Containers</div>
             </div>
           </Link>
 
@@ -106,8 +107,8 @@ export function Header() {
           <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
             <Link
               to="/"
-              className="text-sm font-semibold text-navy hover:text-orange transition-colors py-2"
-              activeProps={{ className: "text-orange" }}
+              className="text-sm font-semibold text-navy hover:text-amber-500 transition-colors py-2"
+              activeProps={{ className: "text-amber-500" }}
               activeOptions={{ exact: true }}
             >
               Home
@@ -121,7 +122,7 @@ export function Header() {
             
             {/* <Link
               to="/shop"
-              className="text-sm font-semibold text-orange hover:text-orange-600 transition-colors py-2"
+              className="text-sm font-semibold text-orange hover:text-amber-600 transition-colors py-2"
             >
               Deals
             </Link> */}
@@ -130,8 +131,8 @@ export function Header() {
               <Link
                 key={l.to}
                 to={l.to}
-                className="text-sm font-semibold text-navy hover:text-orange transition-colors py-2"
-                activeProps={{ className: "text-orange" }}
+                className="text-sm font-semibold text-navy hover:text-amber-500 transition-colors py-2"
+                activeProps={{ className: "text-amber-500" }}
               >
                 {l.label}
               </Link>
@@ -139,9 +140,9 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link to="/cart" className="relative inline-flex items-center justify-center h-11 px-4 rounded-md border-2 border-orange/40 text-navy hover:bg-orange/10 transition">
+            <Link to="/cart" className="relative inline-flex items-center justify-center h-11 px-4 rounded-md border-2 border-amber-500/40 text-navy hover:bg-amber-500/10 transition">
               <ShoppingCart className="h-5 w-5" />
-              <span className="ml-2 inline-flex items-center justify-center h-6 min-w-6 rounded-full bg-orange text-white text-xs font-bold px-1.5">{count}</span>
+              <span className="ml-2 inline-flex items-center justify-center h-6 min-w-6 rounded-full bg-amber-500 text-white text-xs font-bold px-1.5">{count}</span>
             </Link>
             <Link to="/shop" className="hidden md:inline-flex btn-orange !py-2.5 !px-5">
               Shop Now
@@ -186,7 +187,7 @@ export function Header() {
                           to={item.to}
                           search={item.search}
                           onClick={() => setOpen(false)}
-                          className="block py-2 text-sm text-gray-600 hover:text-orange"
+                          className="block py-2 text-sm text-gray-600 hover:text-amber-500"
                         >
                           {item.label}
                         </Link>

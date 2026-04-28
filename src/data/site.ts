@@ -1,8 +1,9 @@
 export const SITE = {
-  name: "Nano Containers LLC",
+  name: "BoxCraft",
+  tagline: "Premium Container Solutions",
   phone: "+1 (435) 229-9359",
   phoneHref: "tel:+14352299359",
-  email: "sales@nano-containers.com",
+  email: "hello@boxcraft.com",
   address: "1045 S 5500 W, Salt Lake City, UT 84104",
   hours: [
     { d: "Mon – Fri", h: "8:00 AM – 6:00 PM" },
@@ -12,18 +13,18 @@ export const SITE = {
 };
 
 export const TICKER_ITEMS = [
-  "Nano Containers LLC",
+  "BoxCraft — Premium Container Solutions",
   "Free Nationwide Delivery",
-  "20ft Containers",
-  "40ft Containers",
-  "High Cube Containers",
-  "Refrigerated Units",
+  "20ft & 40ft Containers",
+  "High Cube & Refrigerated",
+  "Custom Modified Units",
   "Enclosed Trailers",
-  "Horse Trailers",
-  "Cabins For Sale",
-  "Steel Cabins",
+  "Horse & Cargo Trailers",
+  "Modular Cabins",
+  "Steel Office Units",
   "New & Used In Stock",
-  "Free Same-Day Quotes",
+  "Instant Online Quotes",
+  "Financing Available",
 ];
 
 export const NAV_LINKS = [

@@ -10,8 +10,8 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Nano Containers LLC | Shipping Containers For Sale – Salt Lake City, UT" },
-      { name: "description", content: "Shop new & used shipping containers, storage containers, trailers, and modular cabins. Flat-rate $450 nationwide delivery. Call +1 (435) 229-9359." },
+      { title: "BoxCraft | Premium Shipping Containers, Trailers & Cabins" },
+      { name: "description", content: "BoxCraft delivers premium shipping containers, enclosed trailers, and modular cabins nationwide. 400+ products in stock. Free quotes in 1 hour." },
     ],
   }),
 });
