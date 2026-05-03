@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
+import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ShippingRouteImport } from './routes/shipping'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as NewVsUsedRouteImport } from './routes/new-vs-used'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DeliveryPlacementInfoRouteImport } from './routes/delivery-placement-info'
@@ -28,9 +31,24 @@ const TestimonialsRoute = TestimonialsRouteImport.update({
   path: '/testimonials',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
+  id: '/terms-of-service',
+  path: '/terms-of-service',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShippingRoute = ShippingRouteImport.update({
+  id: '/shipping',
+  path: '/shipping',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NewVsUsedRoute = NewVsUsedRouteImport.update({
@@ -99,7 +117,10 @@ export interface FileRoutesByFullPath {
   '/delivery-placement-info': typeof DeliveryPlacementInfoRoute
   '/faq': typeof FaqRoute
   '/new-vs-used': typeof NewVsUsedRoute
+  '/privacy': typeof PrivacyRoute
+  '/shipping': typeof ShippingRoute
   '/shop': typeof ShopRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/testimonials': typeof TestimonialsRoute
   '/category/$slug': typeof CategorySlugRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -114,7 +135,10 @@ export interface FileRoutesByTo {
   '/delivery-placement-info': typeof DeliveryPlacementInfoRoute
   '/faq': typeof FaqRoute
   '/new-vs-used': typeof NewVsUsedRoute
+  '/privacy': typeof PrivacyRoute
+  '/shipping': typeof ShippingRoute
   '/shop': typeof ShopRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/testimonials': typeof TestimonialsRoute
   '/category/$slug': typeof CategorySlugRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -130,7 +154,10 @@ export interface FileRoutesById {
   '/delivery-placement-info': typeof DeliveryPlacementInfoRoute
   '/faq': typeof FaqRoute
   '/new-vs-used': typeof NewVsUsedRoute
+  '/privacy': typeof PrivacyRoute
+  '/shipping': typeof ShippingRoute
   '/shop': typeof ShopRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/testimonials': typeof TestimonialsRoute
   '/category/$slug': typeof CategorySlugRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -147,7 +174,10 @@ export interface FileRouteTypes {
     | '/delivery-placement-info'
     | '/faq'
     | '/new-vs-used'
+    | '/privacy'
+    | '/shipping'
     | '/shop'
+    | '/terms-of-service'
     | '/testimonials'
     | '/category/$slug'
     | '/product/$slug'
@@ -162,7 +192,10 @@ export interface FileRouteTypes {
     | '/delivery-placement-info'
     | '/faq'
     | '/new-vs-used'
+    | '/privacy'
+    | '/shipping'
     | '/shop'
+    | '/terms-of-service'
     | '/testimonials'
     | '/category/$slug'
     | '/product/$slug'
@@ -177,7 +210,10 @@ export interface FileRouteTypes {
     | '/delivery-placement-info'
     | '/faq'
     | '/new-vs-used'
+    | '/privacy'
+    | '/shipping'
     | '/shop'
+    | '/terms-of-service'
     | '/testimonials'
     | '/category/$slug'
     | '/product/$slug'
@@ -193,7 +229,10 @@ export interface RootRouteChildren {
   DeliveryPlacementInfoRoute: typeof DeliveryPlacementInfoRoute
   FaqRoute: typeof FaqRoute
   NewVsUsedRoute: typeof NewVsUsedRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ShippingRoute: typeof ShippingRoute
   ShopRoute: typeof ShopRoute
+  TermsOfServiceRoute: typeof TermsOfServiceRoute
   TestimonialsRoute: typeof TestimonialsRoute
   CategorySlugRoute: typeof CategorySlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
@@ -208,11 +247,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestimonialsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms-of-service': {
+      id: '/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/terms-of-service'
+      preLoaderRoute: typeof TermsOfServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shop': {
       id: '/shop'
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shipping': {
+      id: '/shipping'
+      path: '/shipping'
+      fullPath: '/shipping'
+      preLoaderRoute: typeof ShippingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/new-vs-used': {
@@ -305,7 +365,10 @@ const rootRouteChildren: RootRouteChildren = {
   DeliveryPlacementInfoRoute: DeliveryPlacementInfoRoute,
   FaqRoute: FaqRoute,
   NewVsUsedRoute: NewVsUsedRoute,
+  PrivacyRoute: PrivacyRoute,
+  ShippingRoute: ShippingRoute,
   ShopRoute: ShopRoute,
+  TermsOfServiceRoute: TermsOfServiceRoute,
   TestimonialsRoute: TestimonialsRoute,
   CategorySlugRoute: CategorySlugRoute,
   ProductSlugRoute: ProductSlugRoute,

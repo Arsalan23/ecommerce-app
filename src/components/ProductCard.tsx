@@ -2,16 +2,16 @@ import { Link } from "@tanstack/react-router";
 import { ShoppingCart } from "lucide-react";
 import { type Product, formatPrice } from "@/data/products";
 import { useCart } from "@/lib/cart";
+import { ProductImage } from "@/components/ProductImage";
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
   return (
     <div className="group bg-white rounded-lg border border-border overflow-hidden hover:shadow-xl hover:border-orange/30 transition-all flex flex-col">
       <Link to="/product/$slug" params={{ slug: product.slug }} className="relative block aspect-[4/3] overflow-hidden bg-muted">
-        <img
+        <ProductImage
           src={product.image}
           alt={product.name}
-          loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         {product.badge && (

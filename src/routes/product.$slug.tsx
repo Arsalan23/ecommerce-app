@@ -4,6 +4,7 @@ import * as React from "react";
 import { PRODUCTS, formatPrice } from "@/data/products";
 import { useCart } from "@/lib/cart";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductImage } from "@/components/ProductImage";
 
 export const Route = createFileRoute("/product/$slug")({
   component: ProductPage,
@@ -43,7 +44,7 @@ function ProductPage() {
 
       <section className="container-px mx-auto max-w-7xl py-12 grid lg:grid-cols-2 gap-12">
         <div className="bg-white border rounded-xl overflow-hidden">
-          <img src={product.image} alt={product.name} className="w-full aspect-[4/3] object-cover" />
+          <ProductImage src={product.image} alt={product.name} className="w-full aspect-[4/3] object-cover" loading="eager" />
         </div>
         <div>
           <Link to="/category/$slug" params={{ slug: product.category }} className="text-xs font-bold uppercase tracking-widest text-orange hover:underline">{product.categoryLabel}</Link>

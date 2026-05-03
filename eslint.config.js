@@ -25,4 +25,11 @@ export default tseslint.config(
     },
   },
   eslintPluginPrettier,
+  // Large static datasets: allow one-line records + CRLF without Prettier noise
+  {
+    files: ["src/data/products.ts"],
+    rules: {
+      "prettier/prettier": "off",
+    },
+  },
 );

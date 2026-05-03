@@ -1,3 +1,5 @@
+import { resolveProductImage } from "./productImagePool";
+
 export type Product = {
   id: string;
   slug: string;
@@ -11,8 +13,8 @@ export type Product = {
   featured?: boolean;
 };
 
-// Extended mock products data matching live site categories
-export const PRODUCTS: Product[] = [
+// Extended mock products data matching live site categories (images assigned per category pool in productImagePool)
+const PRODUCTS_RAW: Product[] = [
   // Featured Products
   { id: "p1", slug: "20ft-shipping-container-one-trip-white", name: "20Ft Shipping Container (One Trip) – White", price: 2400, category: "20ft-containers", categoryLabel: "20ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/d21f65a80990-1.jpg", badge: "New", featured: true },
   { id: "p2", slug: "enclosed-car-hauler-26ft-aluminum-blaze", name: "Enclosed Car Hauler 2026 26ft. Aluminum Blaze", price: 13500, oldPrice: 24999, category: "enclosed-trailers", categoryLabel: "Enclosed Trailers", image: "https://nano-containers.com/wp-content/uploads/2026/04/ebf510cdf6aa-1-600x450.webp", badge: "Sale", featured: true },
@@ -64,7 +66,7 @@ export const PRODUCTS: Product[] = [
   { id: "p38", slug: "8x10-raised-bunded", name: "8Ft X 10Ft Raised Bunded Store", price: 6485, category: "8ft-x-10ft-containers", categoryLabel: "8ftx10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/490b6f77359b-1.jpg", badge: "New" },
   { id: "p39", slug: "8x10-one-trip-white", name: "8Ft X 10Ft Container (One Trip) – White", price: 2150, category: "8ft-x-10ft-containers", categoryLabel: "8ftx10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/8560a1b43fe2-1.jpg", badge: "New" },
   { id: "p40", slug: "8x10-green-ral6007", name: "8Ft X 10Ft Container Green (RAL 6007)", price: 3350, category: "8ft-x-10ft-containers", categoryLabel: "8ftx10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/e972fded7b40-1-600x400.jpg" },
-  { id: "p41", slug: "8x10-white-ral9003", name: "8Ft X 10Ft Container White (RAL 9003)", price: 3350, category: "8ft-x-10ft-containers", categoryLabel: "8ftx10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/6c67541e7ac4-1-600x400.jpg" },
+  { id: "p41", slug: "8x10-white-ral9003", name: "8Ft X 10Ft Container White (RAL 9003)", price: 3350, category: "8ft-x-10ft-containers", categoryLabel: "8ftx10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/d21f65a80990-1.jpg" },
   { id: "p42", slug: "8x10-cut-down-used", name: "8Ft X 10Ft Cut Down Used Container", price: 1450, category: "8ft-x-10ft-containers", categoryLabel: "8ftx10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/08ae34a6abd6-1-600x400.jpg" },
   { id: "p43", slug: "8x10-tool-store", name: "8Ft X 10Ft Tool Store Container", price: 1850, category: "8ft-x-10ft-containers", categoryLabel: "8ftx10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/7353f56cf2c2-1-600x400.jpg" },
 
@@ -194,6 +196,26 @@ export const PRODUCTS: Product[] = [
   // Toilet & Shower Blocks (1 product)
   { id: "p151", slug: "toilet-shower-combi-20ft", name: "20Ft Toilet & Shower Block Combi", price: 12500, category: "toilet-shower-blocks", categoryLabel: "Toilet & Shower Blocks", image: "https://nano-containers.com/wp-content/uploads/2026/04/29174d6ee9f1-1-600x400.jpg", badge: "New" },
 
+  // Steel Cabins
+  { id: "p206", slug: "steel-cabin-12x8-anti-vandal", name: "12Ft x 8Ft Steel Anti-Vandal Cabin", price: 4890, category: "steel-cabins", categoryLabel: "Steel Cabins", image: "https://nano-containers.com/wp-content/uploads/2026/04/54119b0f26c1-1-600x400.jpg", badge: "New" },
+  { id: "p207", slug: "steel-cabin-16x10-jackleg", name: "16Ft x 10Ft Steel Jackleg Cabin", price: 6850, category: "steel-cabins", categoryLabel: "Steel Cabins", image: "https://nano-containers.com/wp-content/uploads/2026/04/e1f5128e284d-1-600x400.jpg" },
+  { id: "p208", slug: "steel-cabin-20ft-store", name: "20Ft Steel Site Store Cabin", price: 5600, category: "steel-cabins", categoryLabel: "Steel Cabins", image: "https://nano-containers.com/wp-content/uploads/2026/04/81e57f0999c7-1-600x400.jpg", badge: "New" },
+
+  // Modular Cabins
+  { id: "p209", slug: "modular-cabin-24ft-link", name: "24Ft Modular Linked Office Unit", price: 14200, category: "modular-cabins", categoryLabel: "Modular Cabins", image: "https://nano-containers.com/wp-content/uploads/2026/04/d5bad9729959-1-600x450.jpg", badge: "New" },
+  { id: "p210", slug: "modular-cabin-32ft-welfare", name: "32Ft Modular Welfare & Canteen", price: 19800, category: "modular-cabins", categoryLabel: "Modular Cabins", image: "https://nano-containers.com/wp-content/uploads/2026/04/c956a18d9315-1-600x400.jpg" },
+  { id: "p211", slug: "modular-cabin-40ft-combi", name: "40Ft Modular Combi Office/Store", price: 24500, category: "modular-cabins", categoryLabel: "Modular Cabins", image: "https://nano-containers.com/wp-content/uploads/2026/04/d5bad9729959-1-600x450.jpg", badge: "New" },
+
+  // Portable Offices
+  { id: "p212", slug: "portable-office-10x8", name: "10Ft x 8Ft Portable Office Cabin", price: 4250, category: "portable-offices", categoryLabel: "Portable Offices", image: "https://nano-containers.com/wp-content/uploads/2026/04/392aad75a733-1-600x400.jpg", badge: "New" },
+  { id: "p213", slug: "portable-office-12x9", name: "12Ft x 9Ft Portable Site Office", price: 5680, category: "portable-offices", categoryLabel: "Portable Offices", image: "https://nano-containers.com/wp-content/uploads/2026/04/54119b0f26c1-1-600x400.jpg" },
+  { id: "p214", slug: "portable-office-20ft-deluxe", name: "20Ft Portable Executive Office", price: 11200, category: "portable-offices", categoryLabel: "Portable Offices", image: "https://nano-containers.com/wp-content/uploads/2026/04/54119b0f26c1-1-600x400.jpg", badge: "New" },
+
+  // Guard Shacks
+  { id: "p215", slug: "guard-shack-6x6", name: "6Ft x 6Ft Steel Guard Shack", price: 3200, category: "guard-shacks", categoryLabel: "Guard Shacks", image: "https://nano-containers.com/wp-content/uploads/2026/04/54119b0f26c1-1-600x400.jpg", badge: "New" },
+  { id: "p216", slug: "guard-shack-8x8-vision", name: "8Ft x 8Ft Guard Booth with Vision Panels", price: 4650, category: "guard-shacks", categoryLabel: "Guard Shacks", image: "https://nano-containers.com/wp-content/uploads/2026/04/54119b0f26c1-1-600x400.jpg" },
+  { id: "p217", slug: "guard-shack-10x8-gatehouse", name: "10Ft x 8Ft Gatehouse Cabin", price: 6200, category: "guard-shacks", categoryLabel: "Guard Shacks", image: "https://nano-containers.com/wp-content/uploads/2026/04/54119b0f26c1-1-600x400.jpg", badge: "New" },
+
   // Enclosed Trailers (42 products - subset)
   { id: "p152", slug: "trailer-enclosed-6x12", name: "Enclosed Trailer 6x12 Single Axle", price: 3200, category: "enclosed-trailers", categoryLabel: "Enclosed Trailers", image: "https://nano-containers.com/wp-content/uploads/2026/04/09fc1652db89-1.webp", badge: "New" },
   { id: "p153", slug: "trailer-enclosed-7x14", name: "Enclosed Trailer 7x14 Tandem Axle", price: 4800, category: "enclosed-trailers", categoryLabel: "Enclosed Trailers", image: "https://nano-containers.com/wp-content/uploads/2026/04/09fc1652db89-1.webp" },
@@ -262,6 +284,11 @@ export const PRODUCTS: Product[] = [
   { id: "p204", slug: "acc-paint-kit", name: "Container Touch-Up Paint Kit", price: 95, category: "container-accessories", categoryLabel: "Container Accessories", image: "https://nano-containers.com/wp-content/uploads/2026/04/59fad7ae339a-1.jpg" },
   { id: "p205", slug: "acc-repair-kit", name: "Container Repair Kit", price: 180, category: "container-accessories", categoryLabel: "Container Accessories", image: "https://nano-containers.com/wp-content/uploads/2026/04/59fad7ae339a-1.jpg", badge: "New" },
 ];
+
+export const PRODUCTS: Product[] = PRODUCTS_RAW.map((p) => ({
+  ...p,
+  image: resolveProductImage(p),
+}));
 
 export const formatPrice = (n: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
