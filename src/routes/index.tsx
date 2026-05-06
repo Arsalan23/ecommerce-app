@@ -9,12 +9,11 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { CATEGORIES } from "@/data/categories";
-import { PRODUCTS } from "@/data/products";
+import { PRODUCTS, formatPrice } from "@/data/products";
 import { ProductImage } from "@/components/ProductImage";
 import { SITE_HERO_IMAGE } from "@/data/productImagePool";
 import { TESTIMONIALS } from "@/data/testimonials";
 import { RESOURCE_LINKS } from "@/data/site";
-import { ProductCard } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -31,16 +30,20 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const featured = PRODUCTS.filter((p) => p.featured);
+  const featured = PRODUCTS.filter((p) => p.featured).slice(0, 10);
+  const landingCategories = CATEGORIES.slice(0, 6).map((c, idx) => ({
+    ...c,
+    displayName: ["Containers", "Trailers", "Cabins", "High Cube", "Refrigerated", "Horse Trailer"][idx] || c.name,
+  }));
   return (
     <>
       {/* HERO */}
       <section className="relative bg-navy text-navy-foreground overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--orange)_0%,_transparent_55%)] opacity-20" />
-        <div className="container-px mx-auto max-w-7xl py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center relative">
+        <div className="container-px mx-auto max-w-7xl py-12 md:py-20 grid lg:grid-cols-2 gap-8 md:gap-12 items-center relative">
           <div>
             <div className="badge-tag mb-6">Trusted Nationwide Supplier</div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05]">
+            <h1 className="text-4xl sm:text-5xl lg:text-[62px] font-extrabold tracking-tight leading-[1.05]">
               Containers, Trailers <br /> & Cabins —{" "}
               <span className="text-orange">Delivered to You</span>
             </h1>
@@ -72,11 +75,11 @@ function Index() {
             <ProductImage
               src={SITE_HERO_IMAGE}
               alt="Shipping containers in stock"
-              className="rounded-xl shadow-2xl w-full"
+              className="rounded-lg shadow-2xl w-full aspect-[4/3] object-cover"
               loading="eager"
             />
-            <div className="absolute -bottom-5 -left-5 bg-orange text-white rounded-xl px-5 py-4 shadow-xl">
-              <div className="text-3xl font-extrabold leading-none">400+</div>
+            <div className="absolute -bottom-4 -left-4 bg-orange text-white rounded-lg px-4 py-3 shadow-xl">
+              <div className="text-2xl md:text-3xl font-extrabold leading-none">400+</div>
               <div className="text-xs uppercase tracking-wider mt-1">Products Available</div>
             </div>
           </div>
@@ -123,48 +126,57 @@ function Index() {
       </section>
 
       {/* Categories */}
-      <section className="py-20 container-px mx-auto max-w-7xl">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="badge-tag mb-4">Browse by Type</div>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-navy">Shop by Category</h2>
-          <p className="mt-3 text-muted-foreground">
-            Containers, trailers, and cabins — pick a category to explore inventory.
-          </p>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {CATEGORIES.map((c) => (
-            <Link
-              key={c.slug}
-              to="/shop"
-              search={{ category: c.slug }}
-              className="group relative aspect-square overflow-hidden rounded-xl bg-navy"
-            >
-              <ProductImage
-                src={c.image}
-                alt={c.name}
-                className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <div className="text-xs font-bold uppercase tracking-widest text-orange">
-                  {c.count} items
-                </div>
-                <div className="text-xl font-extrabold text-white mt-1">{c.name}</div>
-              </div>
+      <section className="py-16 md:py-20 bg-muted/40">
+        <div className="container-px mx-auto max-w-7xl">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <div className="badge-tag mb-4">Browse by Type</div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-navy">Shop by Category</h2>
+            <p className="mt-3 text-muted-foreground">
+              Containers, trailers, and cabins — pick a category to explore inventory.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-12 auto-rows-[150px] lg:auto-rows-[170px] gap-3 md:gap-4">
+            {landingCategories.map((c, idx) => {
+              const categoryImage = idx === 1 ? "/assets/trailer.png" : idx === 2 ? "/assets/cabin.png" : idx === 3 ? "/assets/high cube.png" : idx === 4 ? "/assets/ref.png" : idx === 5 ? "/assets/horse trailers.png" : "/assets/front.png";
+              return (
+                <Link
+                  key={c.slug}
+                  to="/shop"
+                  search={{ category: c.slug }}
+                  className={`group relative overflow-hidden rounded-xl bg-navy ${idx < 2 ? "col-span-1 lg:col-span-3 lg:row-span-2" : "col-span-1 lg:col-span-3"}`}
+                >
+                  <ProductImage
+                    src={categoryImage}
+                    alt={c.name}
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/55 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-4">
+                    <div className={`font-extrabold text-white leading-tight ${idx < 2 ? "text-3xl md:text-[32px]" : "text-lg md:text-[28px]"}`}>
+                      {c.displayName || c.name}
+                    </div>
+                    <span className="absolute right-4 bottom-4 inline-flex rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white backdrop-blur-sm">
+                      {c.count} items
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link to="/shop" className="btn-navy min-w-[230px] rounded-md !py-3.5">
+              View All Products <ArrowRight className="h-4 w-4" />
             </Link>
-          ))}
-        </div>
-        <div className="mt-10 text-center">
-          <Link to="/shop" className="btn-navy">
-            View All Products <ArrowRight className="h-4 w-4" />
-          </Link>
+          </div>
         </div>
       </section>
 
       {/* Featured products */}
-      <section className="bg-muted/40 py-20">
+      <section className="bg-white py-16 md:py-20">
         <div className="container-px mx-auto max-w-7xl">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="text-center max-w-2xl mx-auto mb-10">
             <div className="badge-tag mb-4">In Stock Now</div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-navy">Featured Products</h2>
             <p className="mt-3 text-muted-foreground">
@@ -172,9 +184,44 @@ function Index() {
               delivery.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
             {featured.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <div
+                key={p.id}
+                className="bg-white rounded-md border border-border overflow-hidden hover:shadow-lg transition-shadow"
+              >
+                <Link to="/product/$slug" params={{ slug: p.slug }} className="relative block aspect-[4/3] overflow-hidden bg-muted">
+                  <ProductImage
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-full object-cover"
+                  />
+                  {p.badge && (
+                    <span className="absolute top-2 right-2 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-orange text-white">
+                      {p.badge}
+                    </span>
+                  )}
+                </Link>
+                <div className="p-3">
+                  <Link
+                    to="/product/$slug"
+                    params={{ slug: p.slug }}
+                    className="text-[13px] font-bold text-navy leading-snug line-clamp-2 min-h-[2.5rem] hover:text-orange"
+                  >
+                    {p.name}
+                  </Link>
+                  <div className="mt-2 text-sm md:text-base font-extrabold text-navy">
+                    {formatPrice(p.price)}
+                  </div>
+                  <Link
+                    to="/product/$slug"
+                    params={{ slug: p.slug }}
+                    className="mt-3 block w-full text-center rounded-sm bg-orange text-white font-bold uppercase text-[10px] tracking-wider py-2 hover:opacity-90"
+                  >
+                    View Details
+                  </Link>
+                </div>
+              </div>
             ))}
           </div>
           <div className="mt-10 text-center">
@@ -186,12 +233,13 @@ function Index() {
       </section>
 
       {/* Why us */}
-      <section className="py-20 container-px mx-auto max-w-7xl">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="badge-tag mb-4">Why Nano Containers?</div>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-navy">The Trusted Choice</h2>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="bg-navy text-navy-foreground py-16 md:py-20">
+        <div className="container-px mx-auto max-w-7xl">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="badge-tag mb-4">Why BoxCraft?</div>
+            <h2 className="text-3xl md:text-4xl font-extrabold">The Trusted Choice</h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
               t: "Quality Inspected",
@@ -220,44 +268,45 @@ function Index() {
           ].map((f) => (
             <div
               key={f.t}
-              className="bg-white border rounded-xl p-7 hover:border-orange/50 hover:shadow-lg transition-all"
+              className="bg-white/5 border border-white/10 rounded-xl p-7 hover:border-orange/50 transition-all"
             >
               <div className="h-12 w-12 rounded-lg bg-orange/10 text-orange flex items-center justify-center mb-4">
                 <CheckCircle2 className="h-6 w-6" />
               </div>
-              <h3 className="text-xl font-extrabold text-navy">{f.t}</h3>
-              <p className="mt-2 text-muted-foreground text-sm leading-relaxed">{f.d}</p>
+              <h3 className="text-xl font-extrabold text-white">{f.t}</h3>
+              <p className="mt-2 text-white/75 text-sm leading-relaxed">{f.d}</p>
             </div>
           ))}
+        </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="bg-navy text-navy-foreground py-20">
+      <section className="bg-muted/30 py-16 md:py-20">
         <div className="container-px mx-auto max-w-7xl">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="badge-tag mb-4">Customer Reviews</div>
-            <h2 className="text-3xl md:text-4xl font-extrabold">What Our Customers Say</h2>
-            <div className="mt-5 inline-flex items-center gap-3 bg-white/5 rounded-full px-5 py-2.5 border border-white/10">
-              <span className="font-bold">Trustpilot</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-navy">What Our Customers Say</h2>
+            <div className="mt-5 inline-flex items-center gap-3 bg-white rounded-full px-5 py-2.5 border">
+              <span className="font-bold text-navy">Trustpilot</span>
               <span className="text-orange tracking-tighter">★★★★★</span>
-              <span className="text-sm text-white/70">
-                <b className="text-white">4.5</b> · Excellent · 120+ reviews
+              <span className="text-sm text-muted-foreground">
+                <b className="text-navy">4.5</b> · Excellent · 120+ reviews
               </span>
             </div>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {TESTIMONIALS.slice(0, 3).map((t) => (
-              <div key={t.name} className="bg-white/5 border border-white/10 rounded-xl p-6">
+              <div key={t.name} className="bg-white border rounded-xl p-6 shadow-sm">
                 <div className="text-orange text-lg tracking-tighter">{"★".repeat(t.rating)}</div>
-                <p className="mt-3 text-white/85 text-sm leading-relaxed">"{t.quote}"</p>
+                <p className="mt-3 text-muted-foreground text-sm leading-relaxed">"{t.quote}"</p>
                 <div className="mt-5 flex items-center gap-3">
                   <div className="h-10 w-10 rounded-full bg-orange text-white font-bold flex items-center justify-center text-sm">
                     {t.initials}
                   </div>
                   <div>
-                    <div className="font-bold">{t.name}</div>
-                    <div className="text-xs text-white/60">{t.role}</div>
+                    <div className="font-bold text-navy">{t.name}</div>
+                    <div className="text-xs text-muted-foreground">{t.role}</div>
                   </div>
                 </div>
               </div>
@@ -272,10 +321,10 @@ function Index() {
       </section>
 
       {/* CTA banner */}
-      <section className="py-20 container-px mx-auto max-w-7xl">
-        <div className="bg-gradient-to-br from-orange to-orange/80 text-white rounded-2xl p-10 md:p-14 text-center shadow-xl">
+      <section className="bg-orange text-white py-14 md:py-16">
+        <div className="container-px mx-auto max-w-7xl text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold">Ready to Order or Need a Quote?</h2>
-          <p className="mt-3 text-white/90">
+          <p className="mt-3 text-white/90 max-w-2xl mx-auto">
             Browse our full inventory or speak with a specialist — we respond within 24 hours.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-4">
@@ -283,13 +332,13 @@ function Index() {
               to="/shop"
               className="inline-flex items-center justify-center gap-2 rounded-md bg-white text-orange font-bold uppercase tracking-wide text-sm px-6 py-3 hover:bg-white/90"
             >
-              Browse Inventory
+              Shop All Products
             </Link>
             <Link
               to="/contact"
               className="inline-flex items-center justify-center gap-2 rounded-md border-2 border-white text-white font-bold uppercase tracking-wide text-sm px-6 py-3 hover:bg-white hover:text-orange"
             >
-              Request a Free Quote
+              Get A Free Quote
             </Link>
           </div>
         </div>
@@ -306,18 +355,16 @@ function Index() {
               Everything you need to make a confident purchase decision.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
             {RESOURCE_LINKS.map((r) => (
               <Link
                 key={r.to}
                 to={r.to}
-                className="bg-white border rounded-xl p-6 hover:border-orange/50 hover:shadow-md transition-all flex items-start gap-4"
+                className="bg-white border rounded-xl p-6 h-[170px] hover:border-orange/50 hover:shadow-md transition-all flex flex-col items-center justify-center text-center"
               >
-                <div className="text-3xl">{r.icon}</div>
-                <div>
-                  <div className="font-extrabold text-navy">{r.label}</div>
-                  <div className="text-sm text-muted-foreground mt-0.5">{r.desc}</div>
-                </div>
+                <div className="text-3xl leading-none">{r.icon}</div>
+                <div className="font-extrabold text-navy mt-4 text-2xl leading-tight">{r.label}</div>
+                <div className="text-sm text-muted-foreground mt-2">{r.desc}</div>
               </Link>
             ))}
           </div>

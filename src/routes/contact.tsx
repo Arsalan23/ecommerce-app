@@ -31,39 +31,85 @@ function ContactPage() {
 
   return (
     <>
-      <PageHero eyebrow="Get in Touch" title="Contact Us" subtitle="Have a question about containers, trailers, or cabins? We're here to help with your project." />
+      <PageHero eyebrow="Get in Touch" title="Get In Touch" subtitle="Have a question about a container, trailer, or cabin? Our team is here to help. Fill out the form and we will get back to you within 1 business day." />
 
-      <section className="py-20 container-px mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-[1fr,400px] gap-12">
-          {/* Form Section */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-10">
-            {submitted ? (
-              <div className="text-center py-16">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-10 h-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+      <section className="py-16 bg-white">
+        <div className="container-px mx-auto max-w-6xl">
+          <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden grid lg:grid-cols-[320px,1fr]">
+            <aside className="bg-gray-50 p-10 lg:border-r border-gray-200">
+              <h2 className="text-3xl font-bold text-navy mb-4">Get In Touch</h2>
+              <p className="text-gray-600 mb-10 text-sm leading-relaxed">
+                Have a question about a container, trailer, or cabin? Our team is here to help.
+                Fill out the form and we will get back to you within 1 business day.
+              </p>
+
+              <div className="space-y-7 text-sm">
+                <div className="flex items-start gap-4">
+                  <span className="h-8 w-8 rounded-full bg-white border border-gray-200 flex items-center justify-center mt-0.5 shrink-0 shadow-sm">
+                    <MapPin className="h-4 w-4 text-orange" />
+                  </span>
+                  <div>
+                    <p className="text-navy font-semibold uppercase text-xs tracking-wide mb-1">Location</p>
+                    <p className="text-gray-600 leading-relaxed">{SITE.address}</p>
+                  </div>
                 </div>
-                <h2 className="text-3xl font-bold text-navy mb-3">Thank You!</h2>
-                <p className="text-gray-600 text-lg">Your message has been sent successfully.</p>
-                <p className="text-gray-500 mt-2">We'll get back to you within 1 business day.</p>
+
+                <div className="flex items-start gap-4">
+                  <span className="h-8 w-8 rounded-full bg-white border border-gray-200 flex items-center justify-center mt-0.5 shrink-0 shadow-sm">
+                    <Phone className="h-4 w-4 text-orange" />
+                  </span>
+                  <div>
+                    <p className="text-navy font-semibold uppercase text-xs tracking-wide mb-1">Phone</p>
+                    <a href={SITE.phoneHref} className="text-gray-600 leading-relaxed inline-block hover:text-orange">{SITE.phone}</a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <span className="h-8 w-8 rounded-full bg-white border border-gray-200 flex items-center justify-center mt-0.5 shrink-0 shadow-sm">
+                    <Mail className="h-4 w-4 text-orange" />
+                  </span>
+                  <div>
+                    <p className="text-navy font-semibold uppercase text-xs tracking-wide mb-1">Email</p>
+                    <a href={`mailto:${SITE.email}`} className="text-gray-600 leading-relaxed inline-block hover:text-orange">{SITE.email}</a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <span className="h-8 w-8 rounded-full bg-white border border-gray-200 flex items-center justify-center mt-0.5 shrink-0 shadow-sm">
+                    <Clock className="h-4 w-4 text-orange" />
+                  </span>
+                  <div>
+                    <p className="text-navy font-semibold uppercase text-xs tracking-wide mb-1">Business Hours</p>
+                    <p className="text-gray-600 leading-relaxed">Mon - Fri: 8:00 AM - 6:00 PM</p>
+                    <p className="text-gray-600 leading-relaxed">Saturday: 9:00 AM - 2:00 PM</p>
+                    <p className="text-gray-600 leading-relaxed">Sunday: Closed</p>
+                  </div>
+                </div>
               </div>
-            ) : (
-              <>
-                <div className="mb-8">
-                  <h2 className="text-2xl font-bold text-navy mb-2">Send us a Message</h2>
-                  <p className="text-gray-500">Fill out the form below and we'll respond as soon as possible.</p>
-                </div>
+            </aside>
 
+            <div className="p-10">
+              {submitted ? (
+                <div className="text-center py-16">
+                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-10 h-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h2 className="text-3xl font-bold text-navy mb-3">Thank You!</h2>
+                  <p className="text-gray-600 text-lg">Your message has been sent successfully.</p>
+                  <p className="text-gray-500 mt-2">We'll get back to you within 1 business day.</p>
+                </div>
+              ) : (
                 <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <ModernInput
-                      label="Full Name"
+                      label="Your Name"
                       required
                       icon={<User className="h-5 w-5" />}
                       value={formData.name}
                       onChange={(v) => handleChange("name", v)}
-                      placeholder="John Smith"
+                      placeholder="Full Name"
                     />
                     <ModernInput
                       label="Email Address"
@@ -72,20 +118,19 @@ function ContactPage() {
                       icon={<Mail className="h-5 w-5" />}
                       value={formData.email}
                       onChange={(v) => handleChange("email", v)}
-                      placeholder="john@example.com"
+                      placeholder="Email Address"
                     />
                   </div>
 
-                  <ModernInput
-                    label="Phone Number"
-                    type="tel"
-                    icon={<Phone className="h-5 w-5" />}
-                    value={formData.phone}
-                    onChange={(v) => handleChange("phone", v)}
-                    placeholder="+1 (555) 000-0000"
-                  />
-
                   <div className="grid md:grid-cols-2 gap-6">
+                    <ModernInput
+                      label="Phone Number"
+                      type="tel"
+                      icon={<Phone className="h-5 w-5" />}
+                      value={formData.phone}
+                      onChange={(v) => handleChange("phone", v)}
+                      placeholder="Phone Number"
+                    />
                     <ModernSelect
                       label="Subject"
                       required
@@ -93,108 +138,53 @@ function ContactPage() {
                       value={formData.subject}
                       onChange={(v) => handleChange("subject", v)}
                       options={[
-                        { value: "", label: "Select a subject" },
+                        { value: "", label: "General Inquiry" },
                         { value: "quote", label: "Request a Quote" },
                         { value: "shipping", label: "Shipping Question" },
+                        { value: "return", label: "Return / Refund" },
                         { value: "custom", label: "Custom Order" },
-                        { value: "support", label: "Customer Support" },
-                        { value: "other", label: "Other Inquiry" }
-                      ]}
-                    />
-                    <ModernSelect
-                      label="Product Interest"
-                      icon={<ChevronDown className="h-5 w-5" />}
-                      value={formData.containerType}
-                      onChange={(v) => handleChange("containerType", v)}
-                      options={[
-                        { value: "", label: "Select product type" },
-                        { value: "20ft", label: "20ft Container" },
-                        { value: "40ft", label: "40ft Container" },
-                        { value: "high-cube", label: "High Cube Container" },
-                        { value: "reefer", label: "Refrigerated Container" },
-                        { value: "trailer", label: "Enclosed Trailer" },
-                        { value: "cabin", label: "Modular Cabin" },
-                        { value: "other", label: "Other / Not Sure" }
+                        { value: "other", label: "Other" }
                       ]}
                     />
                   </div>
 
+                  <ModernSelect
+                    label="Container Type of Interest"
+                    icon={<ChevronDown className="h-5 w-5" />}
+                    value={formData.containerType}
+                    onChange={(v) => handleChange("containerType", v)}
+                    options={[
+                      { value: "", label: "-- Select a Container Type --" },
+                      { value: "20ft", label: "20ft Standard Container" },
+                      { value: "40ft", label: "40ft Standard Container" },
+                      { value: "high-cube", label: "High Cube Container" },
+                      { value: "reefer", label: "Refrigerated Container" },
+                      { value: "modified", label: "Modified / Custom Container" },
+                      { value: "trailer", label: "Enclosed Trailer" },
+                      { value: "horse", label: "Horse Trailer" },
+                      { value: "cabin", label: "Modular Cabin" },
+                      { value: "other", label: "Other / Not Sure" }
+                    ]}
+                  />
+
                   <ModernTextarea
-                    label="Your Message"
+                    label="Message"
                     required
                     value={formData.message}
                     onChange={(v) => handleChange("message", v)}
-                    placeholder="Tell us about your project requirements..."
+                    placeholder="Tell us how we can help you..."
                     rows={5}
                   />
 
                   <button
                     type="submit"
-                    className="w-full md:w-auto px-8 py-4 bg-orange hover:bg-orange-600 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-orange/30 hover:shadow-xl hover:shadow-orange/40 hover:-translate-y-0.5"
+                    className="w-full px-8 py-3 bg-orange hover:bg-orange-600 text-white font-bold uppercase text-xs tracking-widest rounded-md transition-colors"
                   >
-                    <Send className="h-5 w-5" />
+                    <Send className="h-4 w-4 inline-block mr-2" />
                     Send Message
                   </button>
                 </form>
-              </>
-            )}
-          </div>
-
-          {/* Contact Info Sidebar */}
-          <div className="space-y-6">
-            <div className="bg-navy rounded-2xl p-8 text-white">
-              <h3 className="text-xl font-bold mb-6">Contact Information</h3>
-              <div className="space-y-5">
-                <a href={SITE.phoneHref} className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 bg-orange/20 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-orange transition-colors">
-                    <Phone className="h-5 w-5 text-orange group-hover:text-white" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-white/60 mb-1">Phone</div>
-                    <div className="font-semibold text-lg">{SITE.phone}</div>
-                  </div>
-                </a>
-
-                <a href={`mailto:${SITE.email}`} className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 bg-orange/20 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-orange transition-colors">
-                    <Mail className="h-5 w-5 text-orange group-hover:text-white" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-white/60 mb-1">Email</div>
-                    <div className="font-semibold">{SITE.email}</div>
-                  </div>
-                </a>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-orange/20 rounded-xl flex items-center justify-center shrink-0">
-                    <MapPin className="h-5 w-5 text-orange" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-white/60 mb-1">Address</div>
-                    <div className="font-semibold">{SITE.address}</div>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-orange/20 rounded-xl flex items-center justify-center shrink-0">
-                    <Clock className="h-5 w-5 text-orange" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-white/60 mb-1">Business Hours</div>
-                    <div className="font-semibold">Mon - Fri: 8AM - 6PM</div>
-                    <div className="text-sm text-white/60">Sat: 9AM - 2PM</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-orange/10 rounded-2xl p-6 border border-orange/20">
-              <h4 className="font-bold text-navy mb-2">Need Urgent Help?</h4>
-              <p className="text-sm text-gray-600 mb-4">For immediate assistance, call us directly. Our team is ready to help!</p>
-              <a href={SITE.phoneHref} className="inline-flex items-center gap-2 text-orange font-semibold hover:underline">
-                <Phone className="h-4 w-4" />
-                Call Now
-              </a>
+              )}
             </div>
           </div>
         </div>
@@ -220,7 +210,7 @@ function ModernInput({ label, required, icon, value, onChange, type = "text", pl
         {required && <span className="text-orange ml-1">*</span>}
       </label>
       <div className="relative">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
           {icon}
         </div>
         <input
@@ -229,7 +219,7 @@ function ModernInput({ label, required, icon, value, onChange, type = "text", pl
           onChange={(e) => onChange(e.target.value)}
           required={required}
           placeholder={placeholder}
-          className="w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange focus:bg-white transition-all duration-200"
+          className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange transition-colors"
         />
       </div>
     </div>
@@ -252,21 +242,21 @@ function ModernSelect({ label, required, icon, value, onChange, options }: {
         {required && <span className="text-orange ml-1">*</span>}
       </label>
       <div className="relative">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
           {icon}
         </div>
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
           required={required}
-          className="w-full pl-12 pr-10 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange focus:bg-white transition-all duration-200 appearance-none cursor-pointer"
+          className="w-full pl-10 pr-10 py-3 bg-white border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange transition-colors appearance-none cursor-pointer"
         >
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
           ))}
         </select>
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-          <ChevronDown className="h-5 w-5" />
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+          <ChevronDown className="h-4 w-4" />
         </div>
       </div>
     </div>
@@ -294,7 +284,7 @@ function ModernTextarea({ label, required, value, onChange, placeholder, rows = 
         required={required}
         placeholder={placeholder}
         rows={rows}
-        className="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange/50 focus:border-orange focus:bg-white transition-all duration-200 resize-none"
+        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange transition-colors resize-none"
       />
     </div>
   );

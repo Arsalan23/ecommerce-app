@@ -16,19 +16,19 @@ export type Product = {
 // Extended mock products data matching live site categories (images assigned per category pool in productImagePool)
 const PRODUCTS_RAW: Product[] = [
   // Featured Products
-  { id: "p1", slug: "20ft-shipping-container-one-trip-white", name: "20Ft Shipping Container (One Trip) – White", price: 2400, category: "20ft-containers", categoryLabel: "20ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/d21f65a80990-1.jpg", badge: "New", featured: true },
-  { id: "p2", slug: "enclosed-car-hauler-26ft-aluminum-blaze", name: "Enclosed Car Hauler 2026 26ft. Aluminum Blaze", price: 13500, oldPrice: 24999, category: "enclosed-trailers", categoryLabel: "Enclosed Trailers", image: "https://nano-containers.com/wp-content/uploads/2026/04/ebf510cdf6aa-1-600x450.webp", badge: "Sale", featured: true },
-  { id: "p3", slug: "20ft-x-8ft-steel-store-stacking", name: "20Ft x 8Ft Steel Store (Suitable for Stacking)", price: 3479, category: "cabins-for-sale", categoryLabel: "Cabins For Sale", image: "https://nano-containers.com/wp-content/uploads/2026/04/d5bad9729959-1-600x450.jpg", badge: "New", featured: true },
-  { id: "p4", slug: "40ft-x-8ft-flat-rack-container", name: "40Ft X 8Ft New And Used Container Flat Racks", price: 6000, category: "40ft-containers", categoryLabel: "40ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/5337ce35e8f2-1-600x410.png", featured: true },
-  { id: "p5", slug: "20ft-high-cube-hazardous-waste", name: "20ft High Cube Container – Hazardous Waste", price: 2500, category: "high-cube-containers", categoryLabel: "High Cube", image: "https://nano-containers.com/wp-content/uploads/2026/04/e22af340440e-1-600x450.jpg", featured: true },
-  { id: "p6", slug: "2016-shadow-2-horse-bumper-pull", name: "2016 Shadow 2 Horse Bumper Pull", price: 8080, oldPrice: 10100, category: "two-horse-trailers", categoryLabel: "Horse Trailers", image: "https://nano-containers.com/wp-content/uploads/2026/04/2b40dde6582d-2-600x450.jpg", badge: "Sale", featured: true },
-  { id: "p7", slug: "40ft-high-cube-reefer-container", name: "40ft High Cube Reefer Container", price: 9200, category: "refrigerated-containers", categoryLabel: "Refrigerated", image: "https://nano-containers.com/wp-content/uploads/2026/04/3b87281450a8-1-600x450.jpg", featured: true },
+  { id: "p1", slug: "20ft-shipping-container-one-trip-white", name: "20Ft Shipping Container (One Trip) – White", price: 2400, category: "20ft-containers", categoryLabel: "20ft Containers", image: "/assets/1.png", badge: "New", featured: true },
+  { id: "p2", slug: "enclosed-car-hauler-26ft-aluminum-blaze", name: "Enclosed Car Hauler 2026 26ft. Aluminum Blaze", price: 13500, oldPrice: 24999, category: "enclosed-trailers", categoryLabel: "Enclosed Trailers", image: "/assets/2.png", badge: "Sale", featured: true },
+  { id: "p3", slug: "20ft-x-8ft-steel-store-stacking", name: "20Ft x 8Ft Steel Store (Suitable for Stacking)", price: 3479, category: "cabins-for-sale", categoryLabel: "Cabins For Sale", image: "/assets/3.png", badge: "New", featured: true },
+  { id: "p4", slug: "40ft-x-8ft-flat-rack-container", name: "40Ft X 8Ft New And Used Container Flat Racks", price: 6000, category: "40ft-containers", categoryLabel: "40ft Containers", image: "/assets/4.png", featured: true },
+  { id: "p5", slug: "20ft-high-cube-hazardous-waste", name: "20ft High Cube Container – Hazardous Waste", price: 2500, category: "high-cube-containers", categoryLabel: "High Cube", image: "/assets/5.png", featured: true },
+  { id: "p6", slug: "2016-shadow-2-horse-bumper-pull", name: "2016 Shadow 2 Horse Bumper Pull", price: 8080, oldPrice: 10100, category: "two-horse-trailers", categoryLabel: "Horse Trailers", image: "/assets/6.png", badge: "Sale", featured: true },
+  { id: "p7", slug: "40ft-high-cube-reefer-container", name: "40ft High Cube Reefer Container", price: 9200, category: "refrigerated-containers", categoryLabel: "Refrigerated", image: "/assets/7.png", featured: true },
 
   // 10ft Containers (4 products)
-  { id: "p8", slug: "10ft-one-trip-blue", name: "10Ft Shipping Container (One Trip) – Blue", price: 1850, category: "10ft-containers", categoryLabel: "10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/26d45d77f69e-1.jpg", badge: "New" },
-  { id: "p9", slug: "10ft-one-trip-green", name: "10Ft Shipping Container (One Trip) – Green", price: 1850, category: "10ft-containers", categoryLabel: "10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/78d9c8641a24-3.jpg", badge: "New" },
-  { id: "p10", slug: "10ft-used-wwt", name: "10Ft Used Container – Wind & Watertight", price: 1200, category: "10ft-containers", categoryLabel: "10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/d381df082099-1-600x450.jpg" },
-  { id: "p11", slug: "10ft-high-cube-new", name: "10Ft High Cube Container – New", price: 2200, category: "10ft-containers", categoryLabel: "10ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/e972fded7b40-1-600x400.jpg", badge: "New" },
+  { id: "p8", slug: "10ft-one-trip-blue", name: "10Ft Shipping Container (One Trip)", price: 1850, category: "10ft-containers", categoryLabel: "10ft Containers", image: "/assets/shipping container.png", badge: "New" },
+  { id: "p9", slug: "10ft-one-trip-green", name: "10Ft One Trip Shipping Container Green (RAL 6007)", price: 1850, category: "10ft-containers", categoryLabel: "10ft Containers", image: "/assets/green ral.png", badge: "New" },
+  { id: "p10", slug: "10ft-used-wwt", name: "10Ft X 8Ft Flat Floor Bunded Store", price: 1200, category: "10ft-containers", categoryLabel: "10ft Containers", image: "/assets/flat floor.png" },
+  { id: "p11", slug: "10ft-high-cube-new", name: "10Ft X 8Ft Shipping Container White (RAL 9003)", price: 2200, category: "10ft-containers", categoryLabel: "10ft Containers", image: "/assets/shiiping container white.png", badge: "New" },
 
   // 20ft Containers (17 products)
   { id: "p12", slug: "20ft-one-trip-blue", name: "20Ft Shipping Container (One Trip) – Blue", price: 2150, category: "20ft-containers", categoryLabel: "20ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/26d45d77f69e-1.jpg", badge: "New" },
@@ -45,10 +45,13 @@ const PRODUCTS_RAW: Product[] = [
   { id: "p23", slug: "20ft-chemical-store", name: "20Ft Chemical Storage Container", price: 3400, category: "20ft-containers", categoryLabel: "20ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/490b6f77359b-1.jpg" },
   { id: "p24", slug: "20ft-site-office", name: "20Ft Site Office Container", price: 4500, category: "20ft-containers", categoryLabel: "20ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/d5bad9729959-1-600x450.jpg", badge: "New" },
   { id: "p25", slug: "20ft-workshop", name: "20Ft Workshop Container", price: 4800, category: "20ft-containers", categoryLabel: "20ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/8560a1b43fe2-1.jpg" },
+  { id: "p206", slug: "20ft-dry-van-one-trip", name: "20Ft X 8Ft Dry Van Container (One Trip)", price: 3150, category: "20ft-containers", categoryLabel: "20ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/59fad7ae339a-1.jpg", badge: "New" },
+  { id: "p207", slug: "20ft-bunded-chemical-store", name: "20Ft X 8Ft Steel Bunded Chemical Store", price: 7270, category: "20ft-containers", categoryLabel: "20ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/c705819f426e-1.jpg" },
+  { id: "p208", slug: "20ft-drying-cabin", name: "20Ft X 8Ft Drying Cabin Container", price: 3525, category: "20ft-containers", categoryLabel: "20ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/d5bad9729959-1-600x450.jpg" },
 
   // 30ft Containers (2 products)
-  { id: "p26", slug: "30ft-one-trip", name: "30Ft Shipping Container (One Trip)", price: 3200, category: "30ft-containers", categoryLabel: "30ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/59fad7ae339a-1.jpg", badge: "New" },
-  { id: "p27", slug: "30ft-used-wwt", name: "30Ft Used Container – Wind & Watertight", price: 2100, category: "30ft-containers", categoryLabel: "30ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/08ae34a6abd6-1-600x400.jpg" },
+  { id: "p26", slug: "30ft-one-trip", name: "30Ft One Trip Shipping Container", price: 3200, category: "30ft-containers", categoryLabel: "30ft Containers", image: "/assets/one trip.png", badge: "New" },
+  { id: "p27", slug: "30ft-bulk-container", name: "30Ft Bulk Container", price: 2100, category: "30ft-containers", categoryLabel: "30ft Containers", image: "/assets/bulk.png" },
 
   // 40ft Containers (6 products)
   { id: "p28", slug: "40ft-one-trip", name: "40Ft Shipping Container (One Trip)", price: 3850, category: "40ft-containers", categoryLabel: "40ft Containers", image: "https://nano-containers.com/wp-content/uploads/2026/04/e7277e12128f-1-300x200.jpg", badge: "New" },
@@ -287,7 +290,7 @@ const PRODUCTS_RAW: Product[] = [
 
 export const PRODUCTS: Product[] = PRODUCTS_RAW.map((p) => ({
   ...p,
-  image: resolveProductImage(p),
+  image: p.image.startsWith("/assets/") ? p.image : resolveProductImage(p),
 }));
 
 export const formatPrice = (n: number) =>

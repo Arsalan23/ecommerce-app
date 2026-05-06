@@ -54,6 +54,30 @@ const PRICE_RANGES = [
   { label: "Over $7,000", min: 7000, max: 999999 },
 ];
 
+const SIDEBAR_CONTAINER_TYPE_ORDER = [
+  "10ft-containers",
+  "20ft-containers",
+  "30ft-containers",
+  "40ft-containers",
+  "8ft-x-10ft-containers",
+  "accessories",
+  "cabins-for-sale",
+  "container-accessories",
+  "container-chassis-and-trailers",
+  "container-home-office",
+  "containers-for-export",
+  "enclosed-trailers",
+  "flat-pack-containers",
+  "four-horse-trailers",
+  "high-cube-containers",
+  "refrigerated-containers",
+  "swimming-pool-containers",
+  "three-horse-trailers",
+  "toilet-shower-blocks",
+  "two-horse-trailers",
+  "used-shipping-containers",
+];
+
 function ShopPage() {
   const search = useSearch({ from: "/shop" });
   const navigate = useNavigate({ from: "/shop" });
@@ -88,9 +112,14 @@ function ShopPage() {
     if (!selectedCategory) {
       categoryPool = [...PRODUCTS];
     } else {
-      const direct = PRODUCTS.filter((p) => p.category === selectedCategory);
+      const direct = PRODUCTS.filter((p) =>
+        selectedCategory === "20ft-containers"
+          ? p.category === selectedCategory && !p.featured
+          : p.category === selectedCategory,
+      );
       if (direct.length) {
-        categoryPool = direct;
+        categoryPool =
+          selectedCategory === "20ft-containers" ? direct.slice(0, 17) : direct;
       } else {
         const alt = SHOP_CATEGORY_FALLBACK_SLUG[selectedCategory];
         if (alt) {
@@ -130,8 +159,15 @@ function ShopPage() {
     };
   }, [selectedCategory, selectedPriceRange, sort]);
 
-  // Get product count for a category
-  const getCategoryCount = (slug: string) => PRODUCTS.filter((p) => p.category === slug).length;
+  const sidebarCategories = React.useMemo(
+    () =>
+      SIDEBAR_CONTAINER_TYPE_ORDER.reduce<(typeof CATEGORIES)[number][]>((acc, slug) => {
+        const category = CATEGORIES.find((c) => c.slug === slug);
+        if (category) acc.push(category);
+        return acc;
+      }, []),
+    [],
+  );
 
   // Clear all filters
   const clearFilters = () => {
@@ -166,47 +202,53 @@ function ShopPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Filters */}
           <aside className="w-full lg:w-64 shrink-0 space-y-8">
+            {/* Search Section */}
+            <div className="bg-white rounded-lg border border-border p-5">
+              <h3 className="font-bold text-navy text-lg mb-4">SEARCH</h3>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search ..."
+                  className="w-full border border-border rounded-md px-3 py-2 pr-20 text-sm focus:outline-none focus:border-navy"
+                />
+                <button className="absolute right-1 top-1 bottom-1 bg-orange text-white px-3 rounded-md text-sm font-semibold hover:bg-orange/90 transition-colors">
+                  Search
+                </button>
+              </div>
+            </div>
+
             {/* Container Types Filter */}
             <div className="bg-white rounded-lg border border-border p-5">
-              <h3 className="font-bold text-navy text-lg mb-4">Container Types</h3>
-              <ul className="space-y-2">
+              <h3 className="font-bold text-navy text-lg mb-4">CONTAINER TYPES</h3>
+              <ul className="divide-y divide-border/80">
                 <li>
                   <button
                     onClick={() => handleCategorySelect(null)}
-                    className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors flex items-center justify-between ${
-                      selectedCategory === null
-                        ? "bg-navy text-white"
-                        : "hover:bg-muted text-foreground"
+                    className={`w-full text-left py-3 text-[17px] leading-[1.35] transition-colors ${
+                      selectedCategory === null ? "font-semibold text-navy" : "text-foreground hover:text-navy"
                     }`}
                   >
                     <span>All Containers</span>
                   </button>
                 </li>
-                {CATEGORIES.map((cat) => {
-                  const count = getCategoryCount(cat.slug);
-                  if (count === 0) return null;
+                {sidebarCategories.map((cat) => {
                   return (
                     <li key={cat.slug}>
                       <button
                         onClick={() => handleCategorySelect(cat.slug)}
-                        className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors flex items-center gap-3 justify-between ${
-                          selectedCategory === cat.slug
-                            ? "bg-navy text-white"
-                            : "hover:bg-muted text-foreground"
+                        className={`w-full text-left py-3 text-[17px] leading-[1.35] transition-colors flex items-center justify-between gap-3 ${
+                          selectedCategory === cat.slug ? "font-semibold text-orange" : "text-foreground hover:text-navy"
                         }`}
                       >
-                        <span className="flex items-center gap-3 min-w-0">
-                          <ProductImage
-                            src={cat.image}
-                            alt=""
-                            className="h-10 w-10 rounded-md object-cover shrink-0 border border-border/80"
-                          />
-                          <span className="truncate">{cat.name}</span>
-                        </span>
+                        <span className="truncate">{cat.name}</span>
                         <span
-                          className={`text-xs shrink-0 ${selectedCategory === cat.slug ? "text-white/70" : "text-muted-foreground"}`}
+                          className={`text-xs shrink-0 min-w-8 text-center px-2 py-1 rounded-full ${
+                            selectedCategory === cat.slug
+                              ? "bg-orange text-white"
+                              : "bg-muted text-muted-foreground"
+                          }`}
                         >
-                          {count}
+                          {cat.count}
                         </span>
                       </button>
                     </li>
@@ -325,9 +367,22 @@ function ShopPage() {
             )}
 
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {displayProducts.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
+              {displayProducts.map((p, idx) => {
+                const useTwentyFtSequence = selectedCategory === "20ft-containers" && idx < 17;
+                const sequencedImage = useTwentyFtSequence
+                  ? `/assets/${String.fromCharCode(97 + idx)}.png`
+                  : p.image;
+
+                return (
+                  <ProductCard
+                    key={p.id}
+                    product={{
+                      ...p,
+                      image: sequencedImage,
+                    }}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

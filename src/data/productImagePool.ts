@@ -86,7 +86,7 @@ const NANO_FLAT_PACK = [
 ] as const;
 
 /** Home page hero: strong container product shot. */
-export const SITE_HERO_IMAGE = N("d21f65a80990-1.jpg");
+export const SITE_HERO_IMAGE = "/assets/front.png";
 
 /** About / story imagery: site yard + warehouse mood. */
 export const SITE_ABOUT_IMAGE = N("59fad7ae339a-1.jpg");
