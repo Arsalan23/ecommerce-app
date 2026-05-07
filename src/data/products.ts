@@ -1,5 +1,3 @@
-import { resolveProductImage } from "./productImagePool";
-
 export type Product = {
   id: string;
   slug: string;
@@ -363,9 +361,11 @@ const PRODUCTS_RAW: Product[] = [
   { id: "p205", slug: "acc-repair-kit", name: "Magnetic Light With Pir Sensor", price: 180, category: "container-accessories", categoryLabel: "Container Accessories", image: "/assets/Magnetic Light With Pir Sensor.png", badge: "New" },
 ];
 
-export const PRODUCTS: Product[] = PRODUCTS_RAW.map((p) => ({
+const ASSET_ONLY_PRODUCTS = PRODUCTS_RAW.filter((p) => p.image.startsWith("/assets/"));
+
+export const PRODUCTS: Product[] = ASSET_ONLY_PRODUCTS.map((p) => ({
   ...p,
-  image: p.image.startsWith("/assets/") ? p.image : resolveProductImage(p),
+  image: p.image,
 }));
 
 export const formatPrice = (n: number) =>

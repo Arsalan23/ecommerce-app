@@ -89,6 +89,7 @@ function ShopPage() {
     max: number;
   } | null>(null);
   const [sort, setSort] = React.useState<string>("default");
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   // Update category when URL search param changes
   React.useEffect(() => {
@@ -136,6 +137,20 @@ function ShopPage() {
     }
 
     let result = [...categoryPool];
+    const normalizedSearch = searchQuery.trim().toLowerCase();
+    if (normalizedSearch) {
+      const searched = result.filter((p) => {
+        const haystack = `${p.name} ${p.categoryLabel} ${p.slug}`.toLowerCase();
+        return haystack.includes(normalizedSearch);
+      });
+      if (searched.length) {
+        result = searched;
+      } else {
+        result = [];
+        notices.push("No products matched your search.");
+      }
+    }
+
     if (selectedPriceRange) {
       const inBand = result.filter(
         (p) => p.price >= selectedPriceRange.min && p.price < selectedPriceRange.max,
@@ -157,7 +172,7 @@ function ShopPage() {
       displayProducts: sortProducts(result, sort),
       shopNotice: notices.length ? notices.join(" ") : null,
     };
-  }, [selectedCategory, selectedPriceRange, sort]);
+  }, [selectedCategory, selectedPriceRange, searchQuery, sort]);
 
   const sidebarCategories = React.useMemo(
     () =>
@@ -173,6 +188,7 @@ function ShopPage() {
   const clearFilters = () => {
     setSelectedCategory(null);
     setSelectedPriceRange(null);
+    setSearchQuery("");
     setSort("default");
     navigate({ search: {} });
   };
@@ -209,9 +225,15 @@ function ShopPage() {
                 <input
                   type="text"
                   placeholder="Search ..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full border border-border rounded-md px-3 py-2 pr-20 text-sm focus:outline-none focus:border-navy"
                 />
-                <button className="absolute right-1 top-1 bottom-1 bg-orange text-white px-3 rounded-md text-sm font-semibold hover:bg-orange/90 transition-colors">
+                <button
+                  type="button"
+                  aria-label="Search products"
+                  className="absolute right-1 top-1 bottom-1 bg-orange text-white px-3 rounded-md text-sm font-semibold hover:bg-orange/90 transition-colors"
+                >
                   Search
                 </button>
               </div>
